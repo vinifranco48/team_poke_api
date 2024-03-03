@@ -97,6 +97,7 @@ diff-match-patch @ file:///Users/ktietz/demo/mc3/conda-bld/diff-match-patch_1630
 dill @ file:///work/ci_py311/dill_1676827712960/work
 distlib==0.3.8
 distributed @ file:///croot/distributed_1686866039819/work
+dnspython==2.6.1
 docstring-to-markdown @ file:///work/ci_py311/docstring-to-markdown_1676851973684/work
 docutils @ file:///work/ci_py311/docutils_1676822773036/work
 dulwich==0.21.7
@@ -306,6 +307,7 @@ PyJWT @ file:///work/ci_py311/pyjwt_1676827385359/work
 pylint @ file:///work/ci_py311/pylint_1676920998643/work
 pylint-venv @ file:///work/ci_py311/pylint-venv_1677706395472/work
 pyls-spyder==0.4.0
+pymongo==4.6.2
 pyodbc @ file:///work/ci_py311/pyodbc_1676860985304/work
 pyOpenSSL @ file:///croot/pyopenssl_1690223430423/work
 pyparsing @ file:///work/ci_py311/pyparsing_1677811559502/work
