@@ -6,7 +6,8 @@ class RegisterTeamsController:
     def search_and_register(self, user: str, team: Dict) -> Dict:
         new_team = self.__search(team)
         formatted_response = self.__format_response(user, new_team)
-        self.__register(formatted_response)
+        id = self.__register(formatted_response)
+        formatted_response["id"] = id
 
         return formatted_response
 
@@ -17,11 +18,13 @@ class RegisterTeamsController:
         
         return new_team
 
-    def __register(self, formatted_response: Dict):
+    def __register(self, formatted_response: Dict) -> int:
         teams_model = TeamsModel()
+        
+        id = teams_model.create_teams(formatted_response)
 
-        teams_model.create_teams(formatted_response)
-
+        return id
+    
     def __format_response(self, user: str, new_team: Dict) -> Dict:
         return { 
             "owner": user,

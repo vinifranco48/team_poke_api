@@ -1,8 +1,7 @@
-from src.views.http_types.http_request import HttpRequest
 from src.views.http_types.http_response import HttpResponse
 from src.controllers.get_all_teams_controller import GetAllTeamController
 
-class GetAllTeamsViews:
+class GetAllTeamsView:
     def search_all_teams(self) -> HttpResponse:
         get_all_teams = GetAllTeamController()
 

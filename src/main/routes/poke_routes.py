@@ -1,13 +1,15 @@
 from flask import Blueprint, jsonify, request
 from src.views.http_types.http_request import HttpRequest
-from src.views.register_teams_views import RegisterTeamsViews
-from src.views.get_all_teams_views import GetAllTeamsViews
+from src.views.register_teams_view import RegisterTeamsView
+from src.views.get_all_teams_view import GetAllTeamsView
+from src.views.get_team_view import GetTeamView
+from src.errors.error_hendler import error_hendler
 
 poke_routes_bp = Blueprint('poke_routes', __name__)
 
 @poke_routes_bp.route('/api/teams', methods={'GET'})
 def get_all_teams():
-    get_all_teams = GetAllTeamsViews()
+    get_all_teams = GetAllTeamsView()
 
     http_response =  get_all_teams.search_all_teams()
 
@@ -16,18 +18,23 @@ def get_all_teams():
 
 @poke_routes_bp.route('/api/teams/<int:user>', methods={'GET'})
 def get_team(user: int):
-
-    print(user)
-    return jsonify({
-        'resp':'ok'
-    })
-
-@poke_routes_bp.route('/api/teams', methods={'POST'})
-def register_team():
-    register_teams_views = RegisterTeamsViews()
+    get_team = GetTeamView()
     
-    http_request = HttpRequest(body=request.json)
-    http_response =  register_teams_views.search_and_register(http_request)
+    http_request = HttpRequest(query_params={"id": user})
+    http_response =  get_team.search_team(http_request)
 
     return jsonify(http_response.body), http_response.status_code
 
+@poke_routes_bp.route('/api/teams', methods={'POST'})
+def register_team():
+    http_response = None
+    try:
+        register_teams_views = RegisterTeamsView()
+
+        http_request = HttpRequest(body=request.json)
+        http_response =  register_teams_views.search_and_register(http_request)
+        
+    except Exception as exception:
+        http_response = error_hendler(exception)
+
+    return jsonify(http_response.body), http_response.status_code
