@@ -21,7 +21,6 @@ def get_team(user: int):
 @poke_routes_bp.route('/api/teams', methods={'POST'})
 def register_team():
     register_teams_views = RegisterTeamsViews()
-    print(request.json)
     http_request = HttpRequest(body=request.json)
     http_response =  register_teams_views.search_and_register(http_request)
     return jsonify(http_response.body), http_response.status_code
