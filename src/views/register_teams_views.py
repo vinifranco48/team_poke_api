@@ -3,7 +3,7 @@ from src.views.http_types.http_response import HttpResponse
 from src.controllers.register_teams_controller import RegisterTeamsController
 
 class RegisterTeamsViews:
-    def search_and_register(self, http_request: HttpRequest):
+    def search_and_register(self, http_request: HttpRequest) -> HttpResponse:
         register_teams_controller = RegisterTeamsController()
         
         body = http_request.body
