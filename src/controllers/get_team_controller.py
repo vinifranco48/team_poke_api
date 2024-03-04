@@ -1,5 +1,6 @@
 from typing import Dict
 from src.models.teams_model import TeamsModel
+from src.errors.error_types.http_not_found import HttpNotFoundError
 
 class GetTeamController:
     def search_team_id(self, id: int) -> Dict:
@@ -16,9 +17,15 @@ class GetTeamController:
         return team
     
     def __format_response(self, team: Dict) -> Dict:
-        formatted_response = {
-            "owner": team["owner"],
-            "pokemons": team["pokemons"]
-        }
-
+        print(team)
+        formatted_response = team
+        if len(team) != 0:
+            formatted_response = {
+                "owner": team["owner"],
+                "pokemons": team["pokemons"]
+            }
+            
+        else:
+            raise HttpNotFoundError("Id not found!!")
+        
         return formatted_response

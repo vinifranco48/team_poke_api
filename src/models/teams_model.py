@@ -24,6 +24,7 @@ class TeamsModel:
             return team_data  
 
     def get_team(self, id: int):
+        
         with self.__get_mongo_client() as client:
             teams_collection = client.pokemon_database.teams
             team_data = teams_collection.find_one({"_id": id})
