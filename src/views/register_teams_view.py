@@ -11,5 +11,5 @@ class RegisterTeamsView:
 
         formatted_response = register_teams_controller.search_and_register(user, team)
 
-        return HttpResponse(status_code=200,body=formatted_response) 
+        return HttpResponse(status_code=201,body=formatted_response) 
 

@@ -1,0 +1,230 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Poke Api",
+    "description": "A PokeAPI-based API for registering Pokémon teams, utilizing the PokeAPI to retrieve data related to the Pokémon creatures.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "viniabreu48@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:3000",
+      "description": "Production Server"
+    }
+  ],
+  "paths": {
+    "/info": {
+      "get": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Info",
+        "description": "Returns information about Poke teams️.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "description": "A PokeAPI-based API for registering Pokémon teams, utilizing the PokeAPI to retrieve data related to the Pokémon creatures.",
+                  "name": "Poke Teams",
+                  "version": "1.0v"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/teams/{user}": {
+      "get": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Get User's Poke Team",
+        "description": "Retrieve a user's Poke team information.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user",
+            "required": true,
+            "description": "User's ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "owner": "sleao",
+                  "pokemons": [
+                    {
+                      "id": 9,
+                      "name": "blastoise",
+                      "weight": 855,
+                      "height": 16
+                    },
+                    {
+                      "id": 25,
+                      "name": "pikachu",
+                      "weight": 60,
+                      "height": 4
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": {
+                    "title": "Not Found",
+                    "details": "Id not found."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/teams": {
+      "get": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Get All Poke Teams",
+        "description": "Retrieve information about all Poke teams.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "owner": "sleao",
+                    "pokemons": [
+                      {
+                        "id": 9,
+                        "name": "blastoise",
+                        "weight": 855,
+                        "height": 16
+                      },
+                      {
+                        "id": 25,
+                        "name": "pikachu",
+                        "weight": 60,
+                        "height": 4
+                      }
+                    ]
+                  },
+                  {
+                    "owner": "vinicius",
+                    "pokemons": [
+                      {
+                        "id": 9,
+                        "name": "blastoise",
+                        "weight": 855,
+                        "height": 16
+                      },
+                      {
+                        "id": 25,
+                        "name": "pikachu",
+                        "weight": 60,
+                        "height": 4
+                      },
+                      {
+                        "id": 197,
+                        "name": "umbreon",
+                        "weight": 270,
+                        "height": 10
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Register a New Poke Team",
+        "description": "Register a new Poke team.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "user": "joao",
+                "team": [
+                  "blastoise",
+                  "pikachu",
+                  "umbreon"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Poke team registered successfully.",
+                  "status": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": {
+                    "title": "Bad Request",
+                    "details": "Invalid request. Please check your input and try again.",
+                    "status": false
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": {
+                    "details": {
+                      "uer": [
+                        "unknown field"
+                      ],
+                      "user": [
+                        "required field"
+                      ]
+                    },
+                    "title": "Unprocessable Entity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
